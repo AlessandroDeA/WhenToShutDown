@@ -59,15 +59,5 @@ namespace WhenToShutDown.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap AdobeStock_410433099 {
-            get {
-                object obj = ResourceManager.GetObject("AdobeStock_410433099", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
     }
 }

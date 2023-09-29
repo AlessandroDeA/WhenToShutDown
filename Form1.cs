@@ -23,13 +23,6 @@ namespace WhenToShutDown
             InitializeComponent();
         }
 
-        private void btnNowTime_Click(object sender, EventArgs e)
-        {
-            int minNowAdd = (int)udMinNow.Value;
-            _shutdownService.ScheduleShutdown(minNowAdd);
-            caso = 1;
-        }
-
         private void btnStop_Click(object sender, EventArgs e)
         {
             _shutdownService.CancelShutdown();  
@@ -37,47 +30,108 @@ namespace WhenToShutDown
 
         private void btnShutdown_Click(object sender, EventArgs e)
         {
-            switch (caso) 
-            {
+            switch (caso)
+            { 
                 case 1:
-                    _shutdownService.ExecuteShutdown();
+                    int minNowAdd = (int)udMinNow.Value;
+                    _shutdownService.ExecuteShutdown(minNowAdd);
                     break;
                 case 2:
-                    if (cbTime.Checked) 
+                    if (tbTime.Checked) 
                     {
                         int hour = (int)udHrs.Value;
                         int min = (int)udMin.Value;
                         _shutdownService.ScheduleShutdownTime(hour, min);
                     }
                     break;
-            }
-        }
-
-        private void cbTime_CheckedChanged(object sender, EventArgs e)
-        {
-            udHrs.Enabled = (cbTime.CheckState == CheckState.Checked);
-            udMin.Enabled = (cbTime.CheckState == CheckState.Checked);
-            if (cbTime.Checked)
-            {
-                btnNowTime.Enabled = false;
-                udMinNow.Enabled = false;
-                dtPicker.Enabled = false;
-                caso = 2;
-            }
-            else 
-            {
-                btnNowTime.Enabled = true;
-                udMinNow.Enabled = true;
-                dtPicker.Enabled = true;
+                case 3:
+                    DateTime chagedDay = dtPicker.Value;
+                    _shutdownService.ScheduleShutdownDay(chagedDay);
+                    break;
+                case 4:
+                    int hourNowAdd = (int)udHours.Value;
+                    _shutdownService.ScheduleShutdownHour(hourNowAdd);
+                    break;
             }
         }
 
         private void Form_SD_Load(object sender, EventArgs e)
         {
-            udHrs.Enabled = false;
-            udMin.Enabled = false;
             dtPicker.Format = DateTimePickerFormat.Custom;
             dtPicker.CustomFormat = "HH:mm dd/MM/yyyy";
+        }
+
+        private void tbMinutes_CheckedChanged(object sender, EventArgs e)
+        {
+            if (tbMinutes.Checked)
+            {
+                boxDate.Enabled = false;
+                boxHour.Enabled = false;
+                boxTime.Enabled = false;
+                caso = 1;
+            }
+            else 
+            {
+                boxDate.Enabled = true;
+                boxHour.Enabled = true;
+                boxTime.Enabled = true;
+                _shutdownService.CancelShutdown();
+            }
+        }
+
+        private void tbTime_CheckedChanged(object sender, EventArgs e)
+        {
+            if (tbTime.Checked)
+            {
+                boxDate.Enabled = false;
+                boxHour.Enabled = false;
+                boxMinutes.Enabled = false;
+                caso = 2;
+            }
+            else
+            {
+                boxDate.Enabled = true;
+                boxHour.Enabled = true;
+                boxMinutes.Enabled = true;
+                _shutdownService.CancelShutdown();
+
+            }
+        }
+
+        private void tbDate_CheckedChanged(object sender, EventArgs e)
+        {
+            if (tbDate.Checked) 
+            {
+                boxHour.Enabled = false;
+                boxTime.Enabled = false;
+                boxMinutes.Enabled=false;
+                caso = 3;
+            }
+            else
+            {
+                boxHour.Enabled= true;
+                boxTime.Enabled= true;
+                boxMinutes.Enabled=true;
+                _shutdownService.CancelShutdown();
+            }
+        }
+
+        private void tbHours_CheckedChanged(object sender, EventArgs e)
+        {
+            if (tbHours.Checked)
+            {
+                boxMinutes.Enabled = false;
+                boxDate.Enabled = false;
+                boxTime.Enabled = false;
+                caso = 4;
+            }
+            else 
+            {
+                boxMinutes.Enabled = true;
+                boxDate.Enabled = true;
+                boxTime.Enabled = true;
+                _shutdownService.CancelShutdown();
+            }
         }
     }
 }
