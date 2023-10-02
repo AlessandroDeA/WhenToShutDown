@@ -23,43 +23,12 @@ namespace WhenToShutDown
             InitializeComponent();
         }
 
-        private void btnStop_Click(object sender, EventArgs e)
-        {
-            _shutdownService.CancelShutdown();  
-        }                               
-
-        private void btnShutdown_Click(object sender, EventArgs e)
-        {
-            switch (caso)
-            { 
-                case 1:
-                    int minNowAdd = (int)udMinNow.Value;
-                    _shutdownService.ExecuteShutdown(minNowAdd);
-                    break;
-                case 2:
-                    if (tbTime.Checked) 
-                    {
-                        int hour = (int)udHrs.Value;
-                        int min = (int)udMin.Value;
-                        _shutdownService.ScheduleShutdownTime(hour, min);
-                    }
-                    break;
-                case 3:
-                    DateTime chagedDay = dtPicker.Value;
-                    _shutdownService.ScheduleShutdownDay(chagedDay);
-                    break;
-                case 4:
-                    int hourNowAdd = (int)udHours.Value;
-                    _shutdownService.ScheduleShutdownHour(hourNowAdd);
-                    break;
-            }
-        }
-
         private void Form_SD_Load(object sender, EventArgs e)
         {
             dtPicker.Format = DateTimePickerFormat.Custom;
             dtPicker.CustomFormat = "HH:mm dd/MM/yyyy";
         }
+
 
         private void tbMinutes_CheckedChanged(object sender, EventArgs e)
         {
@@ -98,24 +67,6 @@ namespace WhenToShutDown
             }
         }
 
-        private void tbDate_CheckedChanged(object sender, EventArgs e)
-        {
-            if (tbDate.Checked) 
-            {
-                boxHour.Enabled = false;
-                boxTime.Enabled = false;
-                boxMinutes.Enabled=false;
-                caso = 3;
-            }
-            else
-            {
-                boxHour.Enabled= true;
-                boxTime.Enabled= true;
-                boxMinutes.Enabled=true;
-                _shutdownService.CancelShutdown();
-            }
-        }
-
         private void tbHours_CheckedChanged(object sender, EventArgs e)
         {
             if (tbHours.Checked)
@@ -132,6 +83,56 @@ namespace WhenToShutDown
                 boxTime.Enabled = true;
                 _shutdownService.CancelShutdown();
             }
+        }
+
+        private void tbDate_CheckedChanged(object sender, EventArgs e)
+        {
+            if (tbDate.Checked)
+            {
+                boxHour.Enabled = false;
+                boxMinutes.Enabled = false;
+                boxTime.Enabled = false;
+                caso = 1;
+            }
+            else 
+            {
+                boxHour.Enabled = true;
+                boxMinutes.Enabled = true;
+                boxTime.Enabled= true;
+                _shutdownService.CancelShutdown();
+            }
+        }
+
+        private void cBtnArresto_Click(object sender, EventArgs e)
+        {
+            switch (caso)
+            {
+                case 1:
+                    int minNowAdd = (int)udMinNow.Value;
+                    _shutdownService.ExecuteShutdown(minNowAdd);
+                    break;
+                case 2:
+                    if (tbTime.Checked)
+                    {
+                        int hour = (int)udHrs.Value;
+                        int min = (int)udMin.Value;
+                        _shutdownService.ScheduleShutdownTime(hour, min);
+                    }
+                    break;
+                case 3:
+                    DateTime chagedDay = dtPicker.Value;
+                    _shutdownService.ScheduleShutdownDay(chagedDay);
+                    break;
+                case 4:
+                    int hourNowAdd = (int)udHours.Value;
+                    _shutdownService.ScheduleShutdownHour(hourNowAdd);
+                    break;
+            }
+        }
+
+        private void cBtnAnnulla_Click(object sender, EventArgs e)
+        {
+            _shutdownService.CancelShutdown();
         }
     }
 }

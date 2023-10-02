@@ -11,12 +11,13 @@ public class RoundPanel : GroupBox
         this.TitleForeColor = Color.White;
         this.TitleFont = new Font(this.Font.FontFamily, Font.Size + 8, FontStyle.Bold);
         this.BackColor = Color.Transparent;
-        this.Radious = 25;
+        this.Radious = 1;
         this.TitleHatchStyle = HatchStyle.Percent60;
     }
     protected override void OnPaint(PaintEventArgs e)
     {
         base.OnPaint(e);
+
         GroupBoxRenderer.DrawParentBackground(e.Graphics, this.ClientRectangle, this);
         var rect = ClientRectangle;
         using (var path = GetRoundRectagle(this.ClientRectangle, Radious))
@@ -24,6 +25,7 @@ public class RoundPanel : GroupBox
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             rect = new Rectangle(0, 0,
                 rect.Width, TitleFont.Height + Padding.Bottom + Padding.Top);
+
             if (this.BackColor != Color.Transparent)
                 using (var brush = new SolidBrush(BackColor))
                     e.Graphics.FillPath(brush, path);
@@ -38,6 +40,15 @@ public class RoundPanel : GroupBox
             e.Graphics.SetClip(clip);
             using (var pen = new Pen(TitleBackColor, 1))
                 e.Graphics.DrawPath(pen, path);
+
+            if (BorderVisibile)
+                using (var pen = new Pen(BorderColor, 1))
+                    e.Graphics.DrawPath(pen, path);
+
+            if(BorderVisibile)
+                using (var pen = new Pen(BorderColor, BorderSize))
+                    e.Graphics.DrawPath(pen, path);
+
         }
     }
     public Color TitleBackColor { get; set; }
@@ -45,6 +56,9 @@ public class RoundPanel : GroupBox
     public Font TitleFont { get; set; }
     public Color TitleForeColor { get; set; }
     public int Radious { get; set; }
+    public Color BorderColor { get; set; } = Color.Black;
+    public bool BorderVisibile { get; set; } = true;
+    public float BorderSize { get; set; } = 1.0f;
     private GraphicsPath GetRoundRectagle(Rectangle b, int r)
     {
         GraphicsPath path = new GraphicsPath();

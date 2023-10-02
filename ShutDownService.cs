@@ -36,7 +36,7 @@ namespace WhenToShutDown
                 if (secondsToShutdown > 0)
                 {
                     Process.Start("shutdown", $"/s /t{secondsToShutdown}");
-                    MessageBox.Show($"Il computer verrà spento tra {minutesToAdd} minuti!");
+                    MessageBox.Show($"Il computer verrà spento alle ore {ScheduledTime.Value.ToString("HH:mm")}!");
                 }
                 else
                 {
@@ -86,7 +86,7 @@ namespace WhenToShutDown
                 {
                     int shutdownDay = (int)(ScheduledTime.Value - now).TotalSeconds;
                     Process.Start("shutdown", $"/s /t {shutdownDay}");
-                    MessageBox.Show($"Il computer si spegnerà tra {ScheduledTime}");
+                    MessageBox.Show($"Il computer si spegnerà il {ScheduledTime}");
                 }
                 else 
                 {
