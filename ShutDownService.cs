@@ -26,6 +26,7 @@ namespace WhenToShutDown
                 MessageBox.Show("Nessun spegnimento è stato programmato!");
             }
         }
+
         //Arresto pianificato in prossimità di minuti
         public void ExecuteShutdown(int minutesToAdd) 
         {
@@ -35,7 +36,7 @@ namespace WhenToShutDown
                 int secondsToShutdown = (int)(ScheduledTime.Value - DateTime.Now).TotalSeconds;
                 if (secondsToShutdown > 0)
                 {
-                    Process.Start("shutdown", $"/s /t{secondsToShutdown}");
+                    Process.Start("shutdown", $"/s /t {secondsToShutdown}");
                     MessageBox.Show($"Il computer verrà spento alle ore {ScheduledTime.Value.ToString("HH:mm")}!");
                 }
                 else
@@ -53,25 +54,19 @@ namespace WhenToShutDown
         public void ScheduleShutdownTime(int hour, int min) 
         {
             ScheduledTime = DateTime.Today.AddHours(hour).AddMinutes(min);
-            if (ScheduledTime.HasValue)
-            {
-                DateTime now = DateTime.Now;
+            DateTime now = DateTime.Now;
 
-                if (ScheduledTime.Value > now)
-                {
-                    int shutdownTime = (int)(ScheduledTime.Value - now).TotalSeconds;
-                    Process.Start("shutdown", $"/s /t{shutdownTime}");
-                    MessageBox.Show($"Il computer si spegnerà alle ore {hour}:{min}");
-                }
-                else
-                {
-                    MessageBox.Show("Il tempo programmato per lo spegnimento è già passato!");
-                }
+            if (ScheduledTime <= now)
+            {
+                ScheduledTime = DateTime.Today.AddDays(1);
             }
             else 
             {
                 MessageBox.Show("Nessun spegnimento è stato programmato!");
             }
+            int shutdownTimeInSeconds = (int)(ScheduledTime.Value - now).TotalSeconds;
+            Process.Start("shutdown", $"/s /t {shutdownTimeInSeconds}");
+            MessageBox.Show($"Il computer si spegnerà alle ore {hour}:{min}");
         }
 
         //Arresto pianificato in giorni/ore

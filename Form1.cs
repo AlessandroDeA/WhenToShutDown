@@ -15,7 +15,8 @@ namespace WhenToShutDown
 {
     public partial class Form_SD : Form
     {
-
+        private const bool V = true;
+        private const bool F = false;
         public int caso;
         private readonly ShutDownService _shutdownService = new ShutDownService();
         public Form_SD()
@@ -29,58 +30,37 @@ namespace WhenToShutDown
             dtPicker.CustomFormat = "HH:mm dd/MM/yyyy";
         }
 
-
         private void tbMinutes_CheckedChanged(object sender, EventArgs e)
         {
-            if (tbMinutes.Checked)
+            if (!(tbMinutes.Checked = V))
             {
-                boxDate.Enabled = false;
-                boxHour.Enabled = false;
-                boxTime.Enabled = false;
-                caso = 1;
-            }
-            else 
-            {
-                boxDate.Enabled = true;
-                boxHour.Enabled = true;
-                boxTime.Enabled = true;
+                boxDate.Enabled = V;
+                boxHour.Enabled = V;
+                boxTime.Enabled = V;
                 _shutdownService.CancelShutdown();
             }
+            else
+            {
+                boxDate.Enabled = F;
+                boxHour.Enabled = F;
+                boxTime.Enabled = F;
+                caso = 1;
+            }
         }
-
         private void tbTime_CheckedChanged(object sender, EventArgs e)
         {
             if (tbTime.Checked)
             {
-                boxDate.Enabled = false;
-                boxHour.Enabled = false;
-                boxMinutes.Enabled = false;
+                boxDate.Enabled = F;
+                boxHour.Enabled = F;
+                boxMinutes.Enabled = F;
                 caso = 2;
             }
             else
             {
-                boxDate.Enabled = true;
-                boxHour.Enabled = true;
-                boxMinutes.Enabled = true;
-                _shutdownService.CancelShutdown();
-
-            }
-        }
-
-        private void tbHours_CheckedChanged(object sender, EventArgs e)
-        {
-            if (tbHours.Checked)
-            {
-                boxMinutes.Enabled = false;
-                boxDate.Enabled = false;
-                boxTime.Enabled = false;
-                caso = 4;
-            }
-            else 
-            {
-                boxMinutes.Enabled = true;
-                boxDate.Enabled = true;
-                boxTime.Enabled = true;
+                boxDate.Enabled = V;
+                boxHour.Enabled = V;
+                boxMinutes.Enabled = V;
                 _shutdownService.CancelShutdown();
             }
         }
@@ -89,17 +69,37 @@ namespace WhenToShutDown
         {
             if (tbDate.Checked)
             {
-                boxHour.Enabled = false;
-                boxMinutes.Enabled = false;
-                boxTime.Enabled = false;
-                caso = 1;
+                boxHour.Enabled = F;
+                boxMinutes.Enabled = F;
+                boxTime.Enabled = F;
+
+                caso = 3;
             }
             else 
             {
-                boxHour.Enabled = true;
-                boxMinutes.Enabled = true;
-                boxTime.Enabled= true;
+                boxHour.Enabled = V;
+                boxMinutes.Enabled = V;
+                boxTime.Enabled = V;
                 _shutdownService.CancelShutdown();
+            }
+        }
+
+
+        private void tbHours_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!(tbHours.Checked = V))
+            {
+                boxMinutes.Enabled = V;
+                boxDate.Enabled = V;
+                boxTime.Enabled = V;
+                _shutdownService.CancelShutdown();
+            }
+            else
+            {
+                boxMinutes.Enabled = F;
+                boxDate.Enabled = F;
+                boxTime.Enabled = F;
+                caso = 4;
             }
         }
 
@@ -112,16 +112,13 @@ namespace WhenToShutDown
                     _shutdownService.ExecuteShutdown(minNowAdd);
                     break;
                 case 2:
-                    if (tbTime.Checked)
-                    {
-                        int hour = (int)udHrs.Value;
-                        int min = (int)udMin.Value;
-                        _shutdownService.ScheduleShutdownTime(hour, min);
-                    }
+                    int hour = (int)udHrs.Value;
+                    int min = (int)udMin.Value;
+                    _shutdownService.ScheduleShutdownTime(hour, min);
                     break;
                 case 3:
-                    DateTime chagedDay = dtPicker.Value;
-                    _shutdownService.ScheduleShutdownDay(chagedDay);
+                    DateTime changedDay = dtPicker.Value;
+                    _shutdownService.ScheduleShutdownDay(changedDay);
                     break;
                 case 4:
                     int hourNowAdd = (int)udHours.Value;

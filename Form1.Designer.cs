@@ -126,16 +126,14 @@
             // tbDate
             // 
             this.tbDate.AutoSize = true;
-            this.tbDate.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.tbDate.Location = new System.Drawing.Point(328, 54);
-            this.tbDate.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.tbDate.MinimumSize = new System.Drawing.Size(60, 25);
+            this.tbDate.Location = new System.Drawing.Point(319, 57);
+            this.tbDate.MinimumSize = new System.Drawing.Size(80, 25);
             this.tbDate.Name = "tbDate";
             this.tbDate.OffBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(135)))), ((int)(((byte)(255)))));
             this.tbDate.OffToggleColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(207)))), ((int)(((byte)(254)))));
             this.tbDate.OnBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(65)))), ((int)(((byte)(231)))));
             this.tbDate.OnToggleColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(108)))), ((int)(((byte)(255)))));
-            this.tbDate.Size = new System.Drawing.Size(60, 25);
+            this.tbDate.Size = new System.Drawing.Size(80, 25);
             this.tbDate.TabIndex = 13;
             this.tbDate.UseVisualStyleBackColor = true;
             this.tbDate.CheckedChanged += new System.EventHandler(this.tbDate_CheckedChanged);
@@ -303,17 +301,15 @@
             // tbTime
             // 
             this.tbTime.AutoSize = true;
-            this.tbTime.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.tbTime.Location = new System.Drawing.Point(329, 55);
-            this.tbTime.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.tbTime.MinimumSize = new System.Drawing.Size(60, 25);
+            this.tbTime.Location = new System.Drawing.Point(325, 55);
+            this.tbTime.MinimumSize = new System.Drawing.Size(80, 25);
             this.tbTime.Name = "tbTime";
             this.tbTime.OffBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(135)))), ((int)(((byte)(255)))));
             this.tbTime.OffToggleColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(207)))), ((int)(((byte)(254)))));
             this.tbTime.OnBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(178)))), ((int)(((byte)(65)))), ((int)(((byte)(231)))));
             this.tbTime.OnToggleColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(108)))), ((int)(((byte)(255)))));
-            this.tbTime.Size = new System.Drawing.Size(60, 25);
-            this.tbTime.TabIndex = 12;
+            this.tbTime.Size = new System.Drawing.Size(80, 25);
+            this.tbTime.TabIndex = 14;
             this.tbTime.UseVisualStyleBackColor = true;
             this.tbTime.CheckedChanged += new System.EventHandler(this.tbTime_CheckedChanged);
             // 
@@ -337,7 +333,7 @@
             this.udHrs.Location = new System.Drawing.Point(12, 58);
             this.udHrs.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.udHrs.Maximum = new decimal(new int[] {
-            24,
+            23,
             0,
             0,
             0});
@@ -409,7 +405,6 @@
         private System.Windows.Forms.Label label2;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private RoundPanel boxTime;
-        private CustomControl.CustomToggleButton tbTime;
         private RoundPanel boxHour;
         private CustomControl.CustomToggleButton tbHours;
         public System.Windows.Forms.NumericUpDown udHours;
@@ -420,9 +415,10 @@
         private RoundPanel boxMinutes;
         private RoundPanel boxDate;
         private System.Windows.Forms.DateTimePicker dtPicker;
-        private CustomControl.CustomToggleButton tbDate;
         private CustomControl.CustomButton cBtnArresto;
         private CustomControl.CustomButton cBtnAnnulla;
+        private CustomControl.CustomToggleButton tbDate;
+        private CustomControl.CustomToggleButton tbTime;
     }
 }
 
