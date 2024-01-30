@@ -19,11 +19,11 @@ namespace WhenToShutDown
             {
                 Process.Start("shutdown", "/a");
                 ScheduledTime = null;
-                MessageBox.Show("Operazione di spegnimento PC pianificata annullata!");
+                MessageBox.Show("Operazione di arresto PC pianificata annullata!");
             }
             else 
             {
-                MessageBox.Show("Nessun spegnimento è stato programmato!");
+                MessageBox.Show("Nessun arresto è stato programmato!");
             }
         }
 
@@ -41,12 +41,12 @@ namespace WhenToShutDown
                 }
                 else
                 {
-                    MessageBox.Show("Il tempo programmato per lo spegnimento è già passato!");
+                    MessageBox.Show("Il tempo programmato per l' arresto è già passato!");
                 }
             }
             else 
             {
-                MessageBox.Show("Nessun spegnimento è stato programmato!");
+                MessageBox.Show("Nessun arresto è stato programmato!");
             }
         }
 
@@ -62,7 +62,7 @@ namespace WhenToShutDown
             }
             else 
             {
-                MessageBox.Show("Nessun spegnimento è stato programmato!");
+                MessageBox.Show("Nessun arresto è stato programmato!");
             }
             int shutdownTimeInSeconds = (int)(ScheduledTime.Value - now).TotalSeconds;
             Process.Start("shutdown", $"/s /t {shutdownTimeInSeconds}");
@@ -85,12 +85,12 @@ namespace WhenToShutDown
                 }
                 else 
                 {
-                    MessageBox.Show("Il tempo programmato per lo spegnimento è già passato!");
+                    MessageBox.Show("Il tempo programmato per l' arresto è già passato!");
                 }
             }
             else
             {
-                MessageBox.Show("Nessun spegnimento è stato programmato!");
+                MessageBox.Show("Nessun arresto è stato programmato!");
             }
         }
 
@@ -109,7 +109,5 @@ namespace WhenToShutDown
                 }
             }
         }
-
-
     }
 }
